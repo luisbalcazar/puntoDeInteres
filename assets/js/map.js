@@ -360,6 +360,8 @@ const searchCoords = () => {
 
 				if (verify) {
 
+					coordinates = []
+
 					let spanTag = `<span class="tag label label-info">${centerLat}<span data-role="remove"></span></span>`
 
 					let spanTag2 = `<span class="tag label label-info">${centerLng}<span data-role="remove"></span></span>`
@@ -506,6 +508,8 @@ const searchCoords = () => {
 				}
 
 				if (verify) { 
+
+					coordinates = []
 
 					let spanTag = `<span class="tag label label-info">${centerLat}<span data-role="remove"></span></span>`
 
@@ -685,6 +689,7 @@ buttonFloat.on('click', () => {
 	address = document.getElementById('address')
 	coord = $("#coord")
 	coord1 = $("#coord1") //Ambos input estan conectados 
+	coordinates = []
 
 	if (tagSpan.length > 0) {
 
