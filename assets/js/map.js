@@ -2,8 +2,10 @@ let coordinates = []
 let userCoord = []
 let save = $('#save')
 let buttonFloat = $('#buttonFloat')
+let tableBody = $('#tableBody')
 let counter = 0
 let markers = []
+let arrayForm = []
 let description = document.getElementById('description')
 let phone = document.getElementById('phone')
 let category = document.getElementById('category')
@@ -631,12 +633,42 @@ class CreateMap {
 
 	}
 	// Metodo para borrar marcador
-	removeDraw(markerIndex) {
+	removeDraw(markerIndex, formIndex) {
+		
 		this.map.removeLayer(markerIndex)
+		removeFromList(formIndex)
 		return 'ok'
 	}
 
 }
+
+const list = (form) => { 
+
+	if (arrayForm.length > 0) {
+
+		let tag = `<tr id='element-${form.counter}'>
+				      <th scope="row">${form.description}</th>
+				      <td>${form.address}</td>
+				      <td>${form.phone}</td>
+				      <td>${form.lat}, ${form.lng}</td>
+				      <td>${form.category}</td>
+				    </tr>`
+		tableBody.append(tag)
+
+	}
+
+	
+}
+
+const removeFromList = (index) => {
+	
+	let element = $('#element-'+index)
+	// let elementId = element.split('-')
+
+	arrayForm.splice(index, 1)
+	tableBody[0].removeChild(element[0])
+
+} 
 
 //Instanciamos el mapa
 const mapa = new CreateMap()
@@ -664,8 +696,9 @@ save.on('click', () => {
 		}
 		counter++
 
+		arrayForm.push(form)
+		list(form)
 		//Dibujamos el marcador en el mapa pasando el formulario como parametro
-		
 		mapa.draw(form)
 		coordinates = []
 		save.attr('data-dismiss', 'modal')
@@ -729,7 +762,7 @@ $('#map').on('click', 'a', (e) => {
 	  confirmButtonText: 'Si, borralo!'
 	}).then((result) => {
 		if (result.value) {
-			if (mapa.removeDraw(markers[trashId])=='ok') {
+			if (mapa.removeDraw(markers[trashId], trashId)=='ok') {
 			   	Swal.fire(
 			     '¡Borrado!',
 			     'Este marcador ha sido eliminado.',
