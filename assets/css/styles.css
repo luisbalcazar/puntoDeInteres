@@ -71,3 +71,7 @@ body {
 .trash:hover {
 	cursor: pointer;
 }
+
+#tableBody > tr:hover {
+	cursor: pointer;
+}
