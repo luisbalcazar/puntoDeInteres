@@ -640,6 +640,12 @@ class CreateMap {
 		return 'ok'
 	}
 
+	center(latLng){
+		
+		let division = latLng.split(',')
+		this.map.panTo([division[0], division[1]])
+	}
+
 }
 
 const list = (form) => { 
@@ -771,6 +777,12 @@ $('#map').on('click', 'a', (e) => {
 			}
 		}
 	})
+})
+
+tableBody.on('click', 'tr', (e) => {
+	
+	let elementsTd = $('#'+e.currentTarget.id+' td')
+	mapa.center(elementsTd[2].innerText)
 
 })
 
